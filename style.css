@@ -1,5 +1,5 @@
 :root {
-  --bg: #fffaf7;
+  --bg: #f9f2e2;
   --card: #ffffff;
   --shadow: rgba(120, 120, 140, 0.14);
 
@@ -7,8 +7,8 @@
   --dot: #baa49a;
   --text: #6a6468;
 
-  --button-bg: #efe7e2;
-  --button-text: #5b5b66;
+  --button-bg: #e37d94;
+  --button-text: #ffffff;
 }
 
 * {
