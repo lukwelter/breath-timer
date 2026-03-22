@@ -3,10 +3,9 @@
   --card: #ffffff;
   --shadow: rgba(120, 120, 140, 0.14);
 
-  --ring: #e8dfda;
-  --dot: #c9b8ae;
-
-  --text: #6a6468;
+  --ring: #d8ccc5;
+  --dot: #bfa79a;
+  --text: #6b6468;
 
   --button-bg: #efe7e2;
   --button-text: #5b5b66;
@@ -41,27 +40,27 @@ body {
   margin: 0 auto 28px;
 }
 
-.circle {
-  width: 100%;
-  height: 100%;
+.ring {
+  position: absolute;
+  inset: 0;
+  border: 14px solid var(--ring);
   border-radius: 50%;
-  border: 12px solid var(--ring);
 }
 
-/* 🔵 bewegliche Kugel */
 .dot {
   position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--dot);
   top: 50%;
   left: 50%;
-  width: 16px;
-  height: 16px;
-  background: var(--dot);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(0deg) translate(140px);
-  transform-origin: center;
+  margin-left: -9px;
+  margin-top: -9px;
+  transform: rotate(0deg) translateY(-146px);
+  transform-origin: center center;
 }
 
-/* 🧠 Text in der Mitte */
 .center-label {
   position: absolute;
   inset: 0;
@@ -70,6 +69,7 @@ body {
   font-size: 2rem;
   font-weight: 600;
   color: var(--text);
+  pointer-events: none;
 }
 
 #mainBtn {
@@ -80,6 +80,11 @@ body {
   cursor: pointer;
   background: var(--button-bg);
   color: var(--button-text);
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+#mainBtn:hover {
+  opacity: 0.92;
 }
 
 #mainBtn:active {
@@ -90,5 +95,13 @@ body {
   .circle-wrapper {
     width: 270px;
     height: 270px;
+  }
+
+  .dot {
+    transform: rotate(0deg) translateY(-121px);
+  }
+
+  .center-label {
+    font-size: 1.7rem;
   }
 }
