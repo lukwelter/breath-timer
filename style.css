@@ -4,7 +4,6 @@
   --text: #5b5b66;
   --pastel-left: #cfe7d6;
   --pastel-right: #f7d9d0;
-  --pastel-center: #fffdfb;
   --shadow: rgba(120, 120, 140, 0.14);
 }
 
@@ -31,12 +30,6 @@ body {
   text-align: center;
 }
 
-h1 {
-  margin: 0 0 24px;
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
 .breathing-circle {
   position: relative;
   width: 320px;
@@ -44,22 +37,15 @@ h1 {
   margin: 0 auto 28px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: inset 0 0 0 10px rgba(255, 255, 255, 0.7);
   transition: transform 0.8s ease, box-shadow 0.4s ease;
 }
 
 .breathing-circle.inhale {
   transform: scale(1.06);
-  box-shadow:
-    inset 0 0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 0 8px rgba(247, 217, 208, 0.35);
 }
 
 .breathing-circle.exhale {
   transform: scale(0.96);
-  box-shadow:
-    inset 0 0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 0 8px rgba(207, 231, 214, 0.35);
 }
 
 .half {
@@ -73,7 +59,7 @@ h1 {
   justify-content: center;
   gap: 8px;
   font-size: 1rem;
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .half span {
@@ -95,34 +81,27 @@ h1 {
 }
 
 .dimmed {
-  filter: saturate(0.8);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
-.center-display {
+/* ✨ NEU: Text direkt im Kreis */
+.center-text {
   position: absolute;
-  inset: 50%;
-  transform: translate(-50%, -50%);
-  width: 145px;
-  height: 145px;
-  border-radius: 50%;
-  background: var(--pastel-center);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  inset: 0;
   display: grid;
   place-items: center;
   text-align: center;
-  padding: 12px;
+  pointer-events: none;
 }
 
 #phaseLabel {
-  font-size: 1rem;
-  margin-bottom: 4px;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
 }
 
 #countdown {
-  font-size: 2.3rem;
-  font-weight: 700;
-  line-height: 1;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 #mainBtn {
@@ -134,11 +113,6 @@ h1 {
   cursor: pointer;
   background: #efe7e2;
   color: #5b5b66;
-  transition: transform 0.15s ease, opacity 0.2s ease;
-}
-
-#mainBtn:hover {
-  opacity: 0.9;
 }
 
 #mainBtn:active {
@@ -151,12 +125,7 @@ h1 {
     height: 270px;
   }
 
-  .center-display {
-    width: 125px;
-    height: 125px;
-  }
-
   #countdown {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
