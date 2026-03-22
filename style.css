@@ -3,9 +3,18 @@
   --card: #ffffff;
   --shadow: rgba(120, 120, 140, 0.14);
 
-  --ring: #d9cdc6;
-  --dot: #baa49a;
+  --ring: #ddd2cb;
   --text: #6a6468;
+
+  --inhale-dot: #e7b7a8;
+  --inhale-trail-1: rgba(231, 183, 168, 0.34);
+  --inhale-trail-2: rgba(231, 183, 168, 0.16);
+  --inhale-glow: rgba(231, 183, 168, 0.42);
+
+  --exhale-dot: #a9c7bb;
+  --exhale-trail-1: rgba(169, 199, 187, 0.34);
+  --exhale-trail-2: rgba(169, 199, 187, 0.16);
+  --exhale-glow: rgba(169, 199, 187, 0.42);
 
   --button-bg: #efe7e2;
   --button-text: #5b5b66;
@@ -33,7 +42,6 @@ body {
   text-align: center;
 }
 
-/* Kreis-Container */
 .circle-wrapper {
   position: relative;
   width: 320px;
@@ -41,35 +49,33 @@ body {
   margin: 0 auto 28px;
 }
 
-/* Ring (SVG) */
 .ring {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .ring-circle {
-  fill: none; /* verhindert schwarzen Kreis */
+  fill: none;
   stroke: var(--ring);
   stroke-width: 16;
 }
 
-/* Kugel */
 .dot {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 24px;
-  height: 24px;
-  margin-left: -12px;
-  margin-top: -12px;
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  margin-top: -13px;
   border-radius: 50%;
-  background: var(--dot);
-  box-shadow:
-    0 0 10px rgba(186, 164, 154, 0.45),
-    0 0 24px rgba(186, 164, 154, 0.28);
   transform-origin: center center;
+  transition:
+    background-color 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
 /* Schweif */
@@ -79,20 +85,48 @@ body {
   top: 50%;
   left: 50%;
   width: 18px;
-  height: 42px;
-  transform: translate(-50%, 4px);
+  height: 54px;
+  transform: translate(-50%, 6px);
   border-radius: 999px;
-  background: linear-gradient(
-    to bottom,
-    rgba(186, 164, 154, 0.30) 0%,
-    rgba(186, 164, 154, 0.14) 45%,
-    rgba(186, 164, 154, 0.04) 100%
-  );
-  filter: blur(6px);
+  filter: blur(8px);
   pointer-events: none;
+  transition: background 0.5s ease;
 }
 
-/* Text Mitte */
+/* Einatmen-Farben */
+.dot.inhale {
+  background: var(--inhale-dot);
+  box-shadow:
+    0 0 12px var(--inhale-glow),
+    0 0 28px rgba(231, 183, 168, 0.26);
+}
+
+.dot.inhale::after {
+  background: linear-gradient(
+    to bottom,
+    var(--inhale-trail-1) 0%,
+    var(--inhale-trail-2) 48%,
+    rgba(231, 183, 168, 0.03) 100%
+  );
+}
+
+/* Ausatmen-Farben */
+.dot.exhale {
+  background: var(--exhale-dot);
+  box-shadow:
+    0 0 12px var(--exhale-glow),
+    0 0 28px rgba(169, 199, 187, 0.26);
+}
+
+.dot.exhale::after {
+  background: linear-gradient(
+    to bottom,
+    var(--exhale-trail-1) 0%,
+    var(--exhale-trail-2) 48%,
+    rgba(169, 199, 187, 0.03) 100%
+  );
+}
+
 .center-label {
   position: absolute;
   inset: 0;
@@ -102,9 +136,9 @@ body {
   font-weight: 600;
   color: var(--text);
   pointer-events: none;
+  letter-spacing: 0.02em;
 }
 
-/* Button */
 #mainBtn {
   border: none;
   border-radius: 999px;
@@ -124,7 +158,6 @@ body {
   transform: scale(0.97);
 }
 
-/* Mobile */
 @media (max-width: 420px) {
   .circle-wrapper {
     width: 270px;
@@ -136,16 +169,16 @@ body {
   }
 
   .dot {
-    width: 20px;
-    height: 20px;
-    margin-left: -10px;
-    margin-top: -10px;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    margin-top: -11px;
   }
 
   .dot::after {
     width: 14px;
-    height: 34px;
-    filter: blur(5px);
+    height: 44px;
+    filter: blur(7px);
   }
 
   .center-label {
