@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atemtimer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Atemtimer</h1>
+
+    <div class="breathing-circle" id="breathingCircle">
+      <div class="half left" id="leftHalf">
+        <span>Ausatmen</span>
+        <strong>6s</strong>
+      </div>
+      <div class="half right" id="rightHalf">
+        <span>Einatmen</span>
+        <strong>4s</strong>
+      </div>
+
+      <div class="center-display">
+        <div id="phaseLabel">Bereit</div>
+        <div id="countdown">--</div>
+      </div>
+    </div>
+
+    <button id="mainBtn">Start</button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
