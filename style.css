@@ -1,10 +1,11 @@
 :root {
   --bg: #fffaf7;
   --card: #ffffff;
-  --text: #5b5b66;
   --pastel-left: #cfe7d6;
   --pastel-right: #f7d9d0;
   --shadow: rgba(120, 120, 140, 0.14);
+  --button-bg: #efe7e2;
+  --button-text: #5b5b66;
 }
 
 * {
@@ -15,7 +16,6 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(180deg, #fffaf7 0%, #f9f4f1 100%);
-  color: var(--text);
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -37,7 +37,7 @@ body {
   margin: 0 auto 28px;
   border-radius: 50%;
   overflow: hidden;
-  transition: transform 0.8s ease, box-shadow 0.4s ease;
+  transition: transform 0.8s ease;
 }
 
 .breathing-circle.inhale {
@@ -53,21 +53,7 @@ body {
   top: 0;
   width: 50%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 1rem;
   transition: opacity 0.3s ease;
-}
-
-.half span {
-  font-size: 1rem;
-}
-
-.half strong {
-  font-size: 2rem;
 }
 
 .left {
@@ -81,27 +67,7 @@ body {
 }
 
 .dimmed {
-  opacity: 0.4;
-}
-
-/* ✨ NEU: Text direkt im Kreis */
-.center-text {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  pointer-events: none;
-}
-
-#phaseLabel {
-  font-size: 1.2rem;
-  margin-bottom: 6px;
-}
-
-#countdown {
-  font-size: 3rem;
-  font-weight: bold;
+  opacity: 0.45;
 }
 
 #mainBtn {
@@ -111,8 +77,13 @@ body {
   padding: 14px 24px;
   font-size: 1.1rem;
   cursor: pointer;
-  background: #efe7e2;
-  color: #5b5b66;
+  background: var(--button-bg);
+  color: var(--button-text);
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+#mainBtn:hover {
+  opacity: 0.9;
 }
 
 #mainBtn:active {
@@ -123,9 +94,5 @@ body {
   .breathing-circle {
     width: 270px;
     height: 270px;
-  }
-
-  #countdown {
-    font-size: 2.5rem;
   }
 }
