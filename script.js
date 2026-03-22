@@ -2,61 +2,64 @@ const mainBtn = document.getElementById("mainBtn");
 const dot = document.getElementById("dot");
 const phaseLabel = document.getElementById("phaseLabel");
 
-const phases = [
-  { name: "Ein", duration: 4 },
-  { name: "Aus", duration: 6 }
-];
+const MOBILE_BREAKPOINT = 420;
+const DESKTOP_RADIUS = 130;
+const MOBILE_RADIUS = 109;
+
+const TOTAL_CYCLE_MS = 10000; // 4s Ein + 6s Aus
+const INHALE_MS = 4000;
+const EXHALE_MS = 6000;
 
 let running = false;
-let currentPhaseIndex = 0;
-let phaseStartTime = null;
+let startTime = null;
 let animationFrameId = null;
-let currentAngle = 0;
 
-function updatePhaseLabel() {
-  phaseLabel.textContent = phases[currentPhaseIndex].name;
+function getRadius() {
+  return window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_RADIUS : DESKTOP_RADIUS;
+}
+
+function setDotAngle(angleDeg) {
+  const radius = getRadius();
+  dot.style.transform = `rotate(${angleDeg}deg) translateY(-${radius}px)`;
+}
+
+function updateScene(elapsedMs) {
+  const cycleMs = elapsedMs % TOTAL_CYCLE_MS;
+
+  let progress;
+  let angle;
+  let label;
+
+  if (cycleMs < INHALE_MS) {
+    progress = cycleMs / INHALE_MS;
+    angle = progress * 180;
+    label = "Ein";
+  } else {
+    progress = (cycleMs - INHALE_MS) / EXHALE_MS;
+    angle = 180 + progress * 180;
+    label = "Aus";
+  }
+
+  phaseLabel.textContent = label;
+  setDotAngle(angle);
 }
 
 function animate(timestamp) {
   if (!running) return;
 
-  if (phaseStartTime === null) {
-    phaseStartTime = timestamp;
+  if (startTime === null) {
+    startTime = timestamp;
   }
 
-  const currentPhase = phases[currentPhaseIndex];
-  const elapsed = (timestamp - phaseStartTime) / 1000;
-  const progress = elapsed / currentPhase.duration;
-
-  if (progress >= 1) {
-    currentPhaseIndex = (currentPhaseIndex + 1) % phases.length;
-    phaseStartTime = timestamp;
-    updatePhaseLabel();
-  }
-
-  const adjustedPhase = phases[currentPhaseIndex];
-  const adjustedElapsed = (timestamp - phaseStartTime) / 1000;
-  const adjustedProgress = Math.min(adjustedElapsed / adjustedPhase.duration, 1);
-
-  const startAngle = currentAngle;
-  const angleSpan = 180;
-  const newAngle = startAngle + adjustedProgress * angleSpan;
-
-  dot.style.transform = `rotate(${newAngle}deg) translateY(-146px)`;
-
-  if (adjustedProgress >= 1) {
-    currentAngle = startAngle + angleSpan;
-  }
+  const elapsedMs = timestamp - startTime;
+  updateScene(elapsedMs);
 
   animationFrameId = requestAnimationFrame(animate);
 }
 
 function startTimer() {
   running = true;
-  currentPhaseIndex = 0;
-  currentAngle = 0;
-  phaseStartTime = null;
-  updatePhaseLabel();
+  startTime = null;
   mainBtn.textContent = "Reset";
   animationFrameId = requestAnimationFrame(animate);
 }
@@ -64,15 +67,14 @@ function startTimer() {
 function resetTimer() {
   running = false;
 
-  if (animationFrameId) {
+  if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
   }
 
-  phaseStartTime = null;
-  currentAngle = 0;
-  dot.style.transform = "rotate(0deg) translateY(-146px)";
+  startTime = null;
   phaseLabel.textContent = "";
+  setDotAngle(0);
   mainBtn.textContent = "Start";
 }
 
@@ -83,3 +85,11 @@ mainBtn.addEventListener("click", () => {
     resetTimer();
   }
 });
+
+window.addEventListener("resize", () => {
+  if (!running) {
+    setDotAngle(0);
+  }
+});
+
+resetTimer();
